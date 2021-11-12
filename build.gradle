@@ -17,6 +17,22 @@ allprojects {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://jitpack.io' }
+        maven {
+            credentials {
+                username 'rvxtfz'
+                password 'QBWaa4Fi8O'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2046311-release-HZhbV0/'
+        }
+        maven {
+            credentials {
+                username '5fa36cc9fa82bfeb8078dd44'
+                password '6h0vq)iixT[K'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2046311-snapshot-QLx2DV/'
+        }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 }
 
