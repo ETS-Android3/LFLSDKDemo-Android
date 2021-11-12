@@ -1,0 +1,2 @@
+rootProject.name = "LFLSDKDemo-Android"
+include ':app'
