@@ -49,7 +49,7 @@ public interface InitListener {
 #### 4.1 直接跳转到SDK内部乐福乐Activity
 
 ```java
-LflSDK.show(Context context, String appId, String userId, EventListener eventListener);
+LflSDK.show(Context context, String userId, EventListener eventListener);
 ```
 
 #### 4.2 引用LflTasksLayout
@@ -57,7 +57,7 @@ LflSDK.show(Context context, String appId, String userId, EventListener eventLis
 ```java
 LflLayout lflTasksLayout= (LflLayout) findViewById(R.id.LflTasksLayout);
 
-lflTasksLayout.onLoadLayout(Activity activity, String appId, String userId,EventListener eventListener);
+lflTasksLayout.onLoadLayout(Activity activity, String userId,EventListener eventListener);
 
 注意！此接入方式一定要在onBackPressed中调用
 @Override

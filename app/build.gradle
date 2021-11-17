@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
@@ -54,7 +54,7 @@ dependencies {
 
 
 
-    implementation 'com.alldls.lflsdk:lflsdk:1.0.3.1'
+    // compile 'com.alldls.lflsdk:lflsdk:1.0.4-snapshot-20211117161426828'
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
