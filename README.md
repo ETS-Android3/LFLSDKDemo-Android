@@ -1,4 +1,4 @@
-# 乐福乐alldls_Android接入文档1.0.3.1
+# 乐福乐alldls_Android接入文档1.0.4
 
 ## 1. SDK接入
 
@@ -8,7 +8,7 @@
 
 ## 2. 引用SDK
 
-```
+```groovy
 maven {
   credentials {
       username 'rvxtfz'
@@ -18,29 +18,43 @@ maven {
    	}
 maven { url 'https://repo1.maven.org/maven2/' }
 
-implementation 'com.alldls.lflsdk:lflsdk:1.0.3.1'
-///!!!重要说明！！！需要额外引用最新版融合SDK
+implementation 'com.alldls.lflsdk:lflsdk:1.0.4'
+// 资源包可选，请联系相关人员申请
+
+///!!!重要说明！！！需要引用最新版融合SDK
 ```
 
-### 3.乐福乐SDK初始化
-
-请在Application中调用初始化方法
+### 3.乐福乐SDK初始化（二选一）
 
 ```java
-LflSDK.init(Application application, String appId);
+
+LflSDK.init(Application application, String appId);//重要！！如果您引用了资源包请使用此方法初始化
+
+
+LflSDK.init(Application application, String appId, InitListener initListener);//重要！！如果您没有引用了资源包请使用此方法初始化
+
+```
+
+```java
+public interface InitListener {
+    /***
+     * 初始化成功（重要！！请务必在初始化成功后再调用乐福乐页面的显示方法）
+     */
+    void initSuccess();
+}
 ```
 
 ## 4.乐福乐SDK有两种方式,选择其中一种即可
 
 #### 4.1 直接跳转到SDK内部乐福乐Activity
 
-```
+```java
 LflSDK.show(Context context, String appId, String userId, EventListener eventListener);
 ```
 
 #### 4.2 引用LflTasksLayout
 
-```
+```java
 LflLayout lflTasksLayout= (LflLayout) findViewById(R.id.LflTasksLayout);
 
 lflTasksLayout.onLoadLayout(Activity activity, String appId, String userId,EventListener eventListener);
