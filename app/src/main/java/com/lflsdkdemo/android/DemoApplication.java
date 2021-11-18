@@ -14,7 +14,7 @@ import com.alldls.lflsdk.listener.InitListener;
 public class DemoApplication extends Application {
 
     public static boolean lflInitSuccess = false;
-    public static String AppId = "11037235";
+    public static String AppId = "";
 
     @Override
     public void onCreate() {
