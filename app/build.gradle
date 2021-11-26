@@ -37,6 +37,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == 'release') {
+            variant.assembleProvider.get().doLast {
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    def projectName = rootProject.name
+                    def DATE = new Date().format("yyyy-MM-dd")
+                    def DATETIME = new Date().format("yyyyMMddHHmmssSSS")
+                    def fileName = "${projectName}_${defaultConfig.versionName}_${DATETIME}"
+                    def outputPath = "../output/sample/${DATE}/"
+                    copy {
+                        from outputFile
+                        into outputPath
+                        rename { fileName + ".apk" }
+                    }
+                }
+            }
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,7 +63,7 @@ android {
 }
 
 dependencies {
-    //  implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
@@ -52,9 +71,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+//    compile 'com.lfl.lflreslib:reslib:103-snapshot-20211124105633941'
+    compile 'com.lfl.lflreslib:reslib:109-snapshot-release-20211125100720486'
 
-
-    implementation 'com.alldls.lflsdk:lflsdk:1.0.4'
+      implementation 'com.alldls.lflsdk:lflsdk:1.0.4'
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'

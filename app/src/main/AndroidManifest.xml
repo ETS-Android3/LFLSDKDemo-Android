@@ -4,7 +4,6 @@
     package="com.lflsdkdemo.android">
 
     <application
-        android:name=".DemoApplication"
         android:allowBackup="true"
         android:appComponentFactory="1"
         android:icon="@mipmap/ic_launcher"

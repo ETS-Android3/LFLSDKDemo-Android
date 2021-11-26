@@ -18,9 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alldls.lflsdk.CustomTaskType;
 import com.alldls.lflsdk.LflSDK;
 import com.alldls.lflsdk.listener.EventListener;
+import com.alldls.lflsdk.listener.InitListener;
 import com.alldls.lflsdk.listener.LflCustomTaskListener;
 
-import static com.lflsdkdemo.android.DemoApplication.lflInitSuccess;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         etAppId = (EditText) findViewById(R.id.et_app_id);
         etUserId = (EditText) findViewById(R.id.et_user_id);
         btnGo = (Button) findViewById(R.id.btn_go);
-        etAppId.setText(DemoApplication.AppId);
 
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,34 +57,43 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "please set user id", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                userId = etUserId.getText().toString().trim();
-                if (!lflInitSuccess) {
-                    Toast.makeText(MainActivity.this, "LFLSDK is in loading please wait", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //添加自定义任务回调（可选）
-                LflSDK.addListener(new LflCustomTaskListener() {
-                    @Override
-                    public void onCallCustomTask(CustomTaskType customTaskType) {
 
 
-                        try {
-                            //模拟自定义任务操作
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        LflSDK.triggerSuccess(customTaskType);
-//                        LflSDK.triggerFail(customTaskType);
-                    }
-                });
-                //打开乐福乐页面
-                LflSDK.show(MainActivity.this, userId, new EventListener() {
+                LflSDK.init((Application) MainActivity.this.getApplicationContext(), etAppId.getText().toString(), new InitListener() {
                     @Override
-                    public void onPageClose() {
-                        Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
+                    public void initSuccess() {
+
+
+                        userId = etUserId.getText().toString().trim();
+                        //添加自定义任务回调（可选）
+                        LflSDK.addListener(new LflCustomTaskListener() {
+                            @Override
+                            public void onCallCustomTask(CustomTaskType customTaskType) {
+
+
+                                try {
+                                    //模拟自定义任务操作
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                LflSDK.triggerSuccess(customTaskType);
+//                              LflSDK.triggerFail(customTaskType);
+                            }
+                        });
+
+                        //打开乐福乐页面
+                        LflSDK.show(MainActivity.this, userId, new EventListener() {
+                            @Override
+                            public void onPageClose() {
+                                Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }
                 });
+
+
             }
         });
     }
