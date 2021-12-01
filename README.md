@@ -1,4 +1,4 @@
-# 乐福乐alldls_Android接入文档1.0.3.1
+# 乐福乐Android接入文档1.0.4.0
 
 ## 1. SDK接入
 
@@ -8,7 +8,7 @@
 
 ## 2. 引用SDK
 
-```
+```groovy
 maven {
   credentials {
       username 'rvxtfz'
@@ -18,7 +18,7 @@ maven {
    	}
 maven { url 'https://repo1.maven.org/maven2/' }
 
-implementation 'com.alldls.lflsdk:lflsdk:1.0.3.1'
+implementation 'com.happytour.lflsdk:lflsdk:1.0.4.0'
 ///!!!重要说明！！！需要额外引用最新版融合SDK
 ```
 
@@ -34,13 +34,13 @@ LflSDK.init(Application application, String appId);
 
 #### 4.1 直接跳转到SDK内部乐福乐Activity
 
-```
+```java
 LflSDK.show(Context context, String appId, String userId, EventListener eventListener);
 ```
 
 #### 4.2 引用LflTasksLayout
 
-```
+```java
 LflLayout lflTasksLayout= (LflLayout) findViewById(R.id.LflTasksLayout);
 
 lflTasksLayout.onLoadLayout(Activity activity, String appId, String userId,EventListener eventListener);

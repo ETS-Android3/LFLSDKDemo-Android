@@ -37,6 +37,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == 'release') {
+            variant.assembleProvider.get().doLast {
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    def projectName = rootProject.name
+                    def DATE = new Date().format("yyyy-MM-dd")
+                    def DATETIME = new Date().format("yyyyMMddHHmmssSSS")
+                    def fileName = "${projectName}_${defaultConfig.versionName}.${defaultConfig.versionCode}_${DATETIME}"
+                    def outputPath = "../output/sample/${DATE}/"
+                    copy {
+                        from outputFile
+                        into outputPath
+                        rename { fileName + ".apk" }
+                    }
+                }
+            }
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -53,8 +72,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
+    implementation 'com.happytour.lflsdk:lflsdk:1.0.4.0'
+    implementation 'com.happytour.fusionsdk:fusionsdk:2.9.82'
 
-    compile 'com.happytour.lflsdk:lflsdk:1.0.4.0-snapshot-20211201155749599'
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
@@ -62,9 +82,6 @@ dependencies {
     //移动安全联盟OAID（生成唯一标识用来代替imei,如果app不添加，则可以不用加）
     implementation 'com.bun.miitmdid:fork-oaid:1.0.23'
     implementation 'com.bun.miitmdid:oaidpatch:1.0.0'
-
-
-    implementation 'com.happytour.fusionsdk:fusionsdk:2.9.82'
 
 
     implementation 'com.huawei.openalliance:hwsdk:13.4.40.302'
