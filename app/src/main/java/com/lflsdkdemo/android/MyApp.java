@@ -11,7 +11,7 @@ import com.happytour.lflsdk.LflSDK;
  * @author suntinghui
  */
 public class MyApp extends Application {
-    public static String appId="297750098228543488";
+    public static String appId="";
 
     @Override
     public void onCreate() {
