@@ -10,15 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//import com.happytour.lflsdk.CustomTaskType;
-//import com.happytour.lflsdk.LflSDK;
-//import com.happytour.lflsdk.api.EventListener;
-//import com.happytour.lflsdk.api.LflCustomTaskListener;
+import com.happytour.lflsdk.CustomTaskType;
+import com.happytour.lflsdk.LflSDK;
+import com.happytour.lflsdk.api.EventListener;
+import com.happytour.lflsdk.api.LflCustomTaskListener;
 //
-import com.alldls.lflsdk.CustomTaskType;
-import com.alldls.lflsdk.LflSDK;
-import com.alldls.lflsdk.api.EventListener;
-import com.alldls.lflsdk.api.LflCustomTaskListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         etUserId = (EditText) findViewById(R.id.et_user_id);
         btnGo = (Button) findViewById(R.id.btn_go);
 
-
+        etAppId.setText(MyApp.appId);
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,20 +47,22 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "please set app id", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 appId = etAppId.getText().toString().trim();
                 if (TextUtils.isEmpty(etUserId.getText().toString().trim())) {
                     Toast.makeText(MainActivity.this, "please set user id", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 userId = etUserId.getText().toString().trim();
-                //初始化sdk
-                LflSDK.init((Application) MainActivity.this.getApplicationContext(), appId);
+
                 //添加自定义任务回调（可选）
                 LflSDK.addListener(new LflCustomTaskListener() {
                     @Override
                     public void onCallCustomTask(CustomTaskType customTaskType) {
-                        Toast.makeText(MainActivity.this, customTaskType.typeName, Toast.LENGTH_SHORT).show();
+                        LflSDK.triggerSuccess(customTaskType);
                     }
+
+
                 });
                 //打开乐福乐页面
                 LflSDK.show(MainActivity.this, appId, userId, new EventListener() {
