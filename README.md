@@ -1,4 +1,4 @@
-# 乐福乐alldls_Android接入文档1.0.4
+# 乐福乐alldls_Android接入文档1.0.4.1
 
 ## 1. SDK接入
 
@@ -18,7 +18,7 @@ maven {
    	}
 maven { url 'https://repo1.maven.org/maven2/' }
 
-implementation 'com.alldls.lflsdk:lflsdk:1.0.4'
+implementation 'com.alldls.lflsdk:lflsdk:1.0.4.1'
 // 资源包可选，请联系相关人员申请
 
 ///!!!重要说明！！！需要引用最新版融合SDK
