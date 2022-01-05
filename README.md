@@ -16,7 +16,6 @@ maven {
       	}
       url 'https://packages.aliyun.com/maven/repository/2046311-release-HZhbV0/'
    	}
-maven { url 'https://repo1.maven.org/maven2/' }
 
 implementation 'com.alldls.lflsdk:lflsdk:1.0.4.1'
 // 资源包可选，请联系相关人员申请
