@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
         android:hint="请输入appid"
+        android:text="297750098228543488"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"></EditText>
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:hint="请输入userid"
+        android:text="sth15861694662"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_app_id"></EditText>

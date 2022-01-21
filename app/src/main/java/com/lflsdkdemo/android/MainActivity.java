@@ -1,6 +1,7 @@
 package com.lflsdkdemo.android;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.happytour.lflsdk.CustomTaskType;
 import com.happytour.lflsdk.LflSDK;
 import com.happytour.lflsdk.api.EventListener;
 import com.happytour.lflsdk.api.LflCustomTaskListener;
+import com.happytour.lflsdk.listener.EventListener;
+import com.happytour.lflsdk.listener.LflCustomTaskListener;
 //
 
 public class MainActivity extends AppCompatActivity {
@@ -57,18 +60,18 @@ public class MainActivity extends AppCompatActivity {
 
                 //添加自定义任务回调（可选）
                 LflSDK.addListener(new LflCustomTaskListener() {
-                    @Override
-                    public void onCallCustomTask(CustomTaskType customTaskType) {
-                        LflSDK.triggerSuccess(customTaskType);
-                    }
+                                       @Override
+                                       public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
 
+                                       }
+                                   }
 
-                });
+                );
                 //打开乐福乐页面
-                LflSDK.show(MainActivity.this, appId, userId, new EventListener() {
+                LflSDK.show(MainActivity.this, userId, new EventListener() {
                     @Override
                     public void onPageClose() {
-                        Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }

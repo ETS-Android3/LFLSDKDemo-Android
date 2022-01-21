@@ -1,4 +1,4 @@
-# 乐福乐Android接入文档1.0.4.0
+# 乐福乐Android接入文档1.0.4.2
 
 ## 1. SDK接入
 
@@ -18,17 +18,33 @@ maven {
    	}
 maven { url 'https://repo1.maven.org/maven2/' }
 
-implementation 'com.happytour.lflsdk:lflsdk:1.0.4.0'
+implementation 'com.happytour.lflsdk:lflsdk:1.0.4.2'
 ///!!!重要说明！！！需要额外引用最新版融合SDK
 ```
 
-### 3.乐福乐SDK初始化
+### 3.乐福乐SDK初始化（二选一）
 
 请在Application中调用初始化方法
 
 ```java
-LflSDK.init(Application application, String appId);
+
+LflSDK.init(Application application, String appId);//重要！！如果您引用了资源包请使用此方法初始化
+
+
+LflSDK.init(Application application, String appId, InitListener initListener);//重要！！如果您没有引用了资源包请使用此方法初始化
+
 ```
+
+```
+public interface InitListener {
+    /***
+     * 初始化成功（重要！！请务必在初始化成功后再调用乐福乐页面的显示方法）
+     */
+    void initSuccess();
+}
+```
+
+
 
 ## 4.乐福乐SDK有两种方式,选择其中一种即可
 
@@ -75,7 +91,27 @@ public interface EventListener {
 #### 5.1 在适当位置添加自定义任务回调
 
 ```java
-LflSDK.addListener(LflCustomTaskListener listener)
+LflSDK.addListener(new LflCustomTaskListener() {
+                    @Override
+                    public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
+                        if (customTaskType == CustomTaskType.SHARE) {
+							//调用媒体端分享逻辑
+                        } else if (customTaskType == CustomTaskType.INVITE) {
+							//调用媒体端邀请逻辑
+                        } else if (customTaskType == CustomTaskType.TAKE_PHOTO) {
+							//调用媒体端拍照逻辑
+                        } else if (customTaskType == CustomTaskType.CHECK_LOGIN) {
+                            //调用媒体端检测登录逻辑
+                            if (已登录){
+                                LflSDK.triggerSuccess(customTaskType);
+                            }else {
+                                LflSDK.triggerFail(customTaskType);
+                            }
+                        } else if (customTaskType == CustomTaskType.LOGIN) {
+							//调用媒体端登录逻辑
+                        }
+                    }
+                });
 ```
 
 #### 5.2 当用户操作了自定义任务需要调用如下代码通知乐福乐SDK
@@ -94,10 +130,14 @@ CustomTaskType类
 public enum CustomTaskType {
 
     TAKE_PHOTO("拍照", 5),
-
+    
     SHARE("分享", 6),
-
-    INVITE("邀请", 7);
+    
+    INVITE("邀请", 7),
+    
+    CHECK_LOGIN("登录检测", 8),
+    
+    LOGIN("登录", 9);
 }
 ```
 
@@ -108,8 +148,7 @@ public interface LflCustomTaskListener {
     /**
      * 调用自定义任务(当用户点击页面的自定义任务时会响应此回调)
      *
-     * @param customTask
      */
-    void onCallCustomTask(CustomTaskType customTsk);
+    void onCallCustomTask(Context context，CustomTaskType customTsk);
 }
 ```

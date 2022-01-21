@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.lflsdkdemo.android"
+        applicationId "com.lflsdkdemo.android.test"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -71,8 +71,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-
-    implementation 'com.happytour.lflsdk:lflsdk:1.0.4.0'
+    implementation 'com.lfl.lflreslib:reslib_b612:112-snapshot-20220120173809749'
+    implementation 'com.happytour.lflsdk:lflsdk:1.0.4.2-snapshot-t20220121101131688'
     implementation 'com.happytour.fusionsdk:fusionsdk:2.9.82'
 
 
