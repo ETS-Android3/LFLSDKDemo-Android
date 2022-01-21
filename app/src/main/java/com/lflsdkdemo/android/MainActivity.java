@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.happytour.lflsdk.CustomTaskType;
 import com.happytour.lflsdk.LflSDK;
-import com.happytour.lflsdk.api.EventListener;
-import com.happytour.lflsdk.api.LflCustomTaskListener;
 import com.happytour.lflsdk.listener.EventListener;
 import com.happytour.lflsdk.listener.LflCustomTaskListener;
 //
