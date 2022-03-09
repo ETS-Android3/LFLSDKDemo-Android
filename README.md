@@ -1,4 +1,4 @@
-# 乐福乐alldls_Android接入文档1.0.3.1
+# 乐福乐alldls_Android接入文档1.0.4.2
 
 ## 1. SDK接入
 
@@ -18,7 +18,7 @@ maven {
    	}
 maven { url 'https://repo1.maven.org/maven2/' }
 
-implementation 'com.alldls.lflsdk:lflsdk:1.0.3.1'
+implementation 'com.alldls.lflsdk:lflsdk:1.0.4.2'
 ///!!!重要说明！！！需要额外引用最新版融合SDK
 ```
 
@@ -75,7 +75,26 @@ public interface EventListener {
 #### 5.1 在适当位置添加自定义任务回调
 
 ```java
-LflSDK.addListener(LflCustomTaskListener listener)
+LflSDK.addListener(new LflCustomTaskListener() {
+            @Override
+            public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
+                if (customTaskType == CustomTaskType.SHARE) {
+                    //调用媒体端分享逻辑 
+                } else if (customTaskType == CustomTaskType.INVITE) {
+                    //调用媒体端邀请逻辑 
+                } else if (customTaskType == CustomTaskType.TAKE_PHOTO) {
+                    //调用媒体端拍照逻辑 
+                } else if (customTaskType == CustomTaskType.CHECK_LOGIN) { //调用媒体端检测登录逻辑
+                    if (true) {
+                        LflSDK.triggerSuccess(customTaskType);
+                    } else {
+
+                        LflSDK.triggerFail(customTaskType);
+                    }
+                } else if (customTaskType == CustomTaskType.LOGIN) { //调用媒体端登录逻辑
+                }
+            }
+        });
 ```
 
 #### 5.2 当用户操作了自定义任务需要调用如下代码通知乐福乐SDK
@@ -92,12 +111,16 @@ CustomTaskType类
 
 ```java
 public enum CustomTaskType {
-
-    TAKE_PHOTO("拍照", 5),
-
+    
+	TAKE_PHOTO("拍照", 5),
+    
     SHARE("分享", 6),
-
-    INVITE("邀请", 7);
+    
+    INVITE("邀请", 7),
+    
+    CHECK_LOGIN("登录检测", 8),
+    
+    LOGIN("登录", 9);
 }
 ```
 
