@@ -58,11 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 //添加自定义任务回调（可选）
                 LflSDK.addListener(new LflCustomTaskListener() {
                     @Override
-                    public void onCallCustomTask(CustomTaskType customTaskType) {
-
-                    }
-
-                    @Override
                     public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
                         if (customTaskType == CustomTaskType.SHARE) {
                             //调用媒体端分享逻辑

@@ -8,7 +8,7 @@
 
 ## 2. 引用SDK
 
-```
+```groovy
 maven {
   credentials {
       username 'rvxtfz'
@@ -16,34 +16,47 @@ maven {
       	}
       url 'https://packages.aliyun.com/maven/repository/2046311-release-HZhbV0/'
    	}
-maven { url 'https://repo1.maven.org/maven2/' }
 
 implementation 'com.alldls.lflsdk:lflsdk:1.0.4.2'
-///!!!重要说明！！！需要额外引用最新版融合SDK
+// 资源包可选，请联系相关人员申请
+
+///!!!重要说明！！！需要引用最新版融合SDK
 ```
 
-### 3.乐福乐SDK初始化
-
-请在Application中调用初始化方法
+### 3.乐福乐SDK初始化（二选一）
 
 ```java
-LflSDK.init(Application application, String appId);
+
+LflSDK.init(Application application, String appId);//重要！！如果您引用了资源包请使用此方法初始化
+
+
+LflSDK.init(Application application, String appId, InitListener initListener);//重要！！如果您没有引用了资源包请使用此方法初始化
+
+```
+
+```java
+public interface InitListener {
+    /***
+     * 初始化成功（重要！！请务必在初始化成功后再调用乐福乐页面的显示方法）
+     */
+    void initSuccess();
+}
 ```
 
 ## 4.乐福乐SDK有两种方式,选择其中一种即可
 
 #### 4.1 直接跳转到SDK内部乐福乐Activity
 
-```
-LflSDK.show(Context context, String appId, String userId, EventListener eventListener);
+```java
+LflSDK.show(Context context, String userId, EventListener eventListener);
 ```
 
 #### 4.2 引用LflTasksLayout
 
-```
+```java
 LflLayout lflTasksLayout= (LflLayout) findViewById(R.id.LflTasksLayout);
 
-lflTasksLayout.onLoadLayout(Activity activity, String appId, String userId,EventListener eventListener);
+lflTasksLayout.onLoadLayout(Activity activity, String userId,EventListener eventListener);
 
 注意！此接入方式一定要在onBackPressed中调用
 @Override
@@ -111,8 +124,8 @@ CustomTaskType类
 
 ```java
 public enum CustomTaskType {
-    
-	TAKE_PHOTO("拍照", 5),
+
+    TAKE_PHOTO("拍照", 5),
     
     SHARE("分享", 6),
     
@@ -133,6 +146,6 @@ public interface LflCustomTaskListener {
      *
      * @param customTask
      */
-    void onCallCustomTask(CustomTaskType customTsk);
+    void onCallCustomTask(Context context,CustomTaskType customTsk);
 }
 ```
