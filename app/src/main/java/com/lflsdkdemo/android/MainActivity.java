@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alldls.lflsdk.CustomTaskType;
 import com.alldls.lflsdk.LflSDK;
 import com.alldls.lflsdk.listener.EventListener;
+import com.alldls.lflsdk.listener.InitListener;
 import com.alldls.lflsdk.listener.LflCustomTaskListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,35 +55,40 @@ public class MainActivity extends AppCompatActivity {
                 }
                 userId = etUserId.getText().toString().trim();
                 //初始化sdk
-                LflSDK.init((Application) MainActivity.this.getApplicationContext(), appId);
-                //添加自定义任务回调（可选）
-                LflSDK.addListener(new LflCustomTaskListener() {
+                LflSDK.init((Application) MainActivity.this.getApplicationContext(), appId, new InitListener() {
                     @Override
-                    public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
-                        if (customTaskType == CustomTaskType.SHARE) {
-                            //调用媒体端分享逻辑
-                        } else if (customTaskType == CustomTaskType.INVITE) {
-                            //调用媒体端邀请逻辑
-                        } else if (customTaskType == CustomTaskType.TAKE_PHOTO) {
-                            //调用媒体端拍照逻辑
-                        } else if (customTaskType == CustomTaskType.CHECK_LOGIN) { //调用媒体端检测登录逻辑
-                            if (true) {
-                                LflSDK.triggerSuccess(customTaskType);
-                            } else {
+                    public void initSuccess() {
+                        //添加自定义任务回调（可选）
+                        LflSDK.addListener(new LflCustomTaskListener() {
+                            @Override
+                            public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
+                                if (customTaskType == CustomTaskType.SHARE) {
+                                    //调用媒体端分享逻辑
+                                } else if (customTaskType == CustomTaskType.INVITE) {
+                                    //调用媒体端邀请逻辑
+                                } else if (customTaskType == CustomTaskType.TAKE_PHOTO) {
+                                    //调用媒体端拍照逻辑
+                                } else if (customTaskType == CustomTaskType.CHECK_LOGIN) { //调用媒体端检测登录逻辑
+                                    if (true) {
+                                        LflSDK.triggerSuccess(customTaskType);
+                                    } else {
 
-                                LflSDK.triggerFail(customTaskType);
+                                        LflSDK.triggerFail(customTaskType);
+                                    }
+                                } else if (customTaskType == CustomTaskType.LOGIN) { //调用媒体端登录逻辑
+                                }
                             }
-                        } else if (customTaskType == CustomTaskType.LOGIN) { //调用媒体端登录逻辑
-                        }
+                        });
+                        //打开乐福乐页面
+                        LflSDK.show(MainActivity.this, userId, new EventListener() {
+                            @Override
+                            public void onPageClose() {
+                                Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
-                //打开乐福乐页面
-                LflSDK.show(MainActivity.this, userId, new EventListener() {
-                    @Override
-                    public void onPageClose() {
-                        Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
             }
         });
     }
