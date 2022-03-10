@@ -59,32 +59,37 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-                LflSDK.init((Application) MainActivity.this.getApplicationContext(), etAppId.getText().toString());
-                userId = etUserId.getText().toString().trim();
-                //添加自定义任务回调（可选）
-                LflSDK.addListener(new LflCustomTaskListener() {
+                LflSDK.init((Application) MainActivity.this.getApplicationContext(), etAppId.getText().toString(), new InitListener() {
                     @Override
-                    public void onCallCustomTask(CustomTaskType customTaskType) {
+                    public void initSuccess() {
+                        userId = etUserId.getText().toString().trim();
+                        //添加自定义任务回调（可选）
+                        LflSDK.addListener(new LflCustomTaskListener() {
+                            @Override
+                            public void onCallCustomTask(CustomTaskType customTaskType) {
 
 
-                        try {
-                            //模拟自定义任务操作
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        LflSDK.triggerSuccess(customTaskType);
+                                try {
+                                    //模拟自定义任务操作
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                LflSDK.triggerSuccess(customTaskType);
 //                              LflSDK.triggerFail(customTaskType);
+                            }
+                        });
+
+                        //打开乐福乐页面
+                        LflSDK.show(MainActivity.this, userId, new EventListener() {
+                            @Override
+                            public void onPageClose() {
+                                Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
 
-                //打开乐福乐页面
-                LflSDK.show(MainActivity.this, userId, new EventListener() {
-                    @Override
-                    public void onPageClose() {
-                        Toast.makeText(MainActivity.this, "onPageClose", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
             }
         });
