@@ -73,34 +73,40 @@ dependencies {
 
 
     implementation 'com.alldls.lflsdk:lflsdk:1.0.4.1'
+
     implementation 'com.android.support:support-v4:28.0.0'
     //移动安全联盟OAID（生成唯一标识用来代替imei,如果app不添加，则可以不用加）
     implementation 'com.bun.miitmdid:fork-oaid:1.0.23'
     implementation 'com.bun.miitmdid:oaidpatch:1.0.0'
 
     //融合
-    implementation 'com.alldls.fusionsdk:fusionsdk:2.9.134'
-    implementation 'com.cdother.klevin:kysdk:2.4.1.10'
-    implementation 'com.cdother.klevin:kypatch:1.0.0'
+    compile 'com.alldls.fusionsdk:fusionsdk:2.9.144'
+    //游可赢
+    compile 'com.cdother.klevin:kysdk:2.4.1.10'
+    compile 'com.cdother.klevin:kypatch:1.0.0'
     //广点通
-    implementation 'com.qq.e.union:fork-union:4.440.1310'
-    implementation 'com.qq.e.union:gdtpatch:1.0.0'//广点通补充
+    compile 'com.qq.e.union:fork-union:4.431.1301'
+    compile 'com.qq.e.union:gdtpatch:1.0.0'//广点通补充
     //穿山甲
-    implementation 'com.bytedance.sdk.openadsdk.adhost:fork-openadsdk:4.1.0.5'
-    implementation 'com.bytedance.sdk.openadsdk.adhost:csjpatch:1.0.1'//穿山甲补充
-    //快手
-    implementation 'com.kwad.sdk:fork-kssdk:3.3.25.3'
-    implementation 'com.kwad.sdk:kspatch:1.0.0'//快手补充
+    compile 'com.bytedance.sdk.openadsdk.adhost:fork-openadsdk:4.1.0.5'
+    compile 'com.bytedance.sdk.openadsdk.adhost:csjpatch:1.0.1'//穿山甲补充
+    //Gromore
+    compile 'com.gromore.sdk:gromore:3.2.1.0'
+    compile 'com.gromore.sdk:pangle-adapter:4.2.0.2'
+    compile 'com.gromore.sdk:gromorepatch:1.0.0'//Gromore补充
+    //快手 注意以下快手版本需二选一
+    compile 'com.kwad.sdk:fork-kssdk-ad:3.3.21'//快手ad版本
+    compile 'com.kwad.sdk:kspatch:1.0.0'//快手补充
     //sig
-    implementation 'com.sig.win:sig:3.4.1'
-    implementation 'com.sig.win:sigpatch:1.0.0'
+    compile 'com.sig.win:sig:3.4.1'
+    compile 'com.sig.win:sigpatch:1.0.0'
     //爱奇艺
-    implementation 'com.mcto.sspsdk:iqysdk:1.3.12'
-    implementation 'com.mcto.sspsdk:iqypatch:1.0.2'
+    compile 'com.mcto.sspsdk:iqysdk:1.3.12'
+    compile 'com.mcto.sspsdk:iqypatch:1.0.2'
     //京东
-    implementation 'com.jd.ad:jadyunsdk:1.4.0'
+    compile 'com.jd.ad:jadyunsdk:1.4.0'
     //百度
-    implementation 'com.baidu.mobads.sdk:bdsdk:9.181'
+    compile 'com.baidu.mobads.sdk:bdsdk:9.181'
     //华为
-    implementation 'com.huawei.openalliance:hwsdk:13.4.40.302'
+    compile 'com.huawei.openalliance:hwsdk:13.4.40.302'
 }
