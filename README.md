@@ -1,4 +1,4 @@
-# 乐福乐alldls_Android接入文档1.0.4.2
+# 乐福乐Android接入文档
 
 ## 1. SDK接入
 
@@ -13,11 +13,11 @@ maven {
   credentials {
       username 'rvxtfz'
       password 'QBWaa4Fi8O'
-      	}
-      url 'https://packages.aliyun.com/maven/repository/2046311-release-HZhbV0/'
-   	}
+  }
+  url 'https://packages.aliyun.com/maven/repository/2046311-release-HZhbV0/'
+}
 
-implementation 'com.alldls.lflsdk:lflsdk:1.0.4.2'
+implementation 'com.alldls.lflsdk:lflsdk:1.0.5'
 // 资源包可选，请联系相关人员申请
 
 ///!!!重要说明！！！需要引用最新版融合SDK
@@ -26,12 +26,7 @@ implementation 'com.alldls.lflsdk:lflsdk:1.0.4.2'
 ### 3.乐福乐SDK初始化（二选一）
 
 ```java
-
-LflSDK.init(Application application, String appId);//重要！！如果您引用了资源包请使用此方法初始化
-
-
 LflSDK.init(Application application, String appId, InitListener initListener);//重要！！如果您没有引用了资源包请使用此方法初始化
-
 ```
 
 ```java
@@ -40,6 +35,10 @@ public interface InitListener {
      * 初始化成功（重要！！请务必在初始化成功后再调用乐福乐页面的显示方法）
      */
     void initSuccess();
+    /***
+     * 初始化失败
+     */
+    void initFail();
 }
 ```
 
@@ -58,17 +57,17 @@ LflLayout lflTasksLayout= (LflLayout) findViewById(R.id.LflTasksLayout);
 
 lflTasksLayout.onLoadLayout(Activity activity, String userId,EventListener eventListener);
 
-注意！此接入方式一定要在onBackPressed中调用
+//注意！此接入方式一定要在onBackPressed中调用
 @Override
 public void onBackPressed() {
-if (lflTasksLayout.getWebView().canGoBack()) {
-   lflTasksLayout.getWebView().goBack();
-} else {
-   super.onBackPressed();
-  }
+    if (lflTasksLayout.getWebView().canGoBack()) {
+       lflTasksLayout.getWebView().goBack();
+    } else {
+       super.onBackPressed();
+    }
 }
-注意！此接入方式一定要在onDestroy中调用
-  lflLayout.onDestroy();
+//注意！此接入方式一定要在onDestroy中调用
+lflLayout.onDestroy();
 ```
 
 EventListener类：
@@ -89,25 +88,26 @@ public interface EventListener {
 
 ```java
 LflSDK.addListener(new LflCustomTaskListener() {
-            @Override
-            public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
-                if (customTaskType == CustomTaskType.SHARE) {
-                    //调用媒体端分享逻辑 
-                } else if (customTaskType == CustomTaskType.INVITE) {
-                    //调用媒体端邀请逻辑 
-                } else if (customTaskType == CustomTaskType.TAKE_PHOTO) {
-                    //调用媒体端拍照逻辑 
-                } else if (customTaskType == CustomTaskType.CHECK_LOGIN) { //调用媒体端检测登录逻辑
-                    if (true) {
-                        LflSDK.triggerSuccess(customTaskType);
-                    } else {
-
-                        LflSDK.triggerFail(customTaskType);
-                    }
-                } else if (customTaskType == CustomTaskType.LOGIN) { //调用媒体端登录逻辑
+        @Override
+        public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
+            if (customTaskType == CustomTaskType.SHARE) {
+                //调用媒体端分享逻辑 
+            } else if (customTaskType == CustomTaskType.INVITE) {
+                //调用媒体端邀请逻辑 
+            } else if (customTaskType == CustomTaskType.TAKE_PHOTO) {
+                //调用媒体端拍照逻辑 
+            } else if (customTaskType == CustomTaskType.CHECK_LOGIN) { 
+                //调用媒体端检测登录逻辑
+                if (...已登录...) {
+                    LflSDK.triggerSuccess(customTaskType);
+                } else {
+                    LflSDK.triggerFail(customTaskType);
                 }
+            } else if (customTaskType == CustomTaskType.LOGIN) { 
+                //调用媒体端登录逻辑
             }
-        });
+        }
+});
 ```
 
 #### 5.2 当用户操作了自定义任务需要调用如下代码通知乐福乐SDK
@@ -126,13 +126,13 @@ CustomTaskType类
 public enum CustomTaskType {
 
     TAKE_PHOTO("拍照", 5),
-    
+
     SHARE("分享", 6),
-    
+
     INVITE("邀请", 7),
-    
+
     CHECK_LOGIN("登录检测", 8),
-    
+
     LOGIN("登录", 9);
 }
 ```
