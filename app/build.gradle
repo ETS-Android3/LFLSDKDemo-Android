@@ -56,33 +56,34 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
     implementation 'com.alldls.lflsdk:lflsdk:1.0.5'
+    // 以下参考融合SDK文档接入
     //移动安全联盟OAID（生成唯一标识用来代替imei,如果app不添加，则可以不用加）
     implementation 'com.bun.miitmdid:fork-oaid:1.0.23'
     implementation 'com.bun.miitmdid:oaidpatch:1.0.0'
 
-    implementation 'com.alldls.fusionsdk:fusionsdk:2.9.123'
+    implementation 'com.campmobile.fusionsdk:fusionsdk:2.9.147'
 
     implementation 'com.huawei.openalliance:hwsdk:13.4.40.302'
 
-    implementation 'com.jd.ad:jadyunsdk:1.2.0'
+    implementation 'com.jd.ad:jadyunsdk:1.2.8'
 
 //    implementation 'com.baidu.mobads.sdk:bdsdk:9.1'
 
-    implementation 'com.qq.e.union:fork-union:4.351.1221'
+    implementation 'com.qq.e.union:fork-union:4.410.1280'
     implementation 'com.qq.e.union:gdtpatch:1.0.0'
 
-    implementation 'com.bytedance.sdk.openadsdk.adhost:fork-openadsdk:3.7.0.2'
+    implementation 'com.bytedance.sdk.openadsdk.adhost:fork-openadsdk:4.0.0.6'
     implementation 'com.bytedance.sdk.openadsdk.adhost:csjpatch:1.0.1'
 
     implementation 'com.bun.miitmdid:fork-oaid:1.0.23'
     implementation 'com.bun.miitmdid:oaidpatch:1.0.0'
 
-    implementation 'com.kwad.sdk:fork-kssdk:3.3.17'
+    implementation 'com.kwad.sdk:fork-kssdk:3.3.23'
     implementation 'com.kwad.sdk:kspatch:1.0.0'
 
     implementation 'com.sig.win:sig:3.0.0'
     implementation 'com.sig.win:sigpatch:1.0.0'
 
-    implementation 'com.mcto.sspsdk:iqysdk:1.3.5'
+    implementation 'com.mcto.sspsdk:iqysdk:1.3.12'
     implementation 'com.mcto.sspsdk:iqypatch:1.0.2'
 }
