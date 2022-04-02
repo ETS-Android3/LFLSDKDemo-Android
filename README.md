@@ -17,7 +17,7 @@ maven {
   url 'https://packages.aliyun.com/maven/repository/2046311-release-HZhbV0/'
 }
 
-implementation 'com.alldls.lflsdk:lflsdk:1.0.5'
+implementation 'com.alldls.lflsdk:lflsdk:1.0.6'
 // 资源包可选，请联系相关人员申请
 
 ///!!!重要说明！！！需要引用最新版融合SDK
@@ -89,7 +89,7 @@ public interface EventListener {
 ```java
 LflSDK.addListener(new LflCustomTaskListener() {
         @Override
-        public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
+        public void onCallCustomTask(Context context, int customTaskType) {
             if (customTaskType == CustomTaskType.SHARE) {
                 //调用媒体端分享逻辑 
             } else if (customTaskType == CustomTaskType.INVITE) {
@@ -114,26 +114,28 @@ LflSDK.addListener(new LflCustomTaskListener() {
 
 ```java
 //任务完成
-LflSDK.triggerSuccess(CustomTaskType customTask);
+LflSDK.triggerSuccess(int customTaskType);
 
 //任务失败
-LflSDK.triggerFail(CustomTaskType customTask);
+LflSDK.triggerFail(int customTaskType);
 ```
 
 CustomTaskType类
 
 ```java
-public enum CustomTaskType {
+public interface CustomTaskType {
 
-    TAKE_PHOTO("拍照", 5),
+    int TAKE_PHOTO = 5; //拍照
 
-    SHARE("分享", 6),
+    int SHARE = 6; //分享
 
-    INVITE("邀请", 7),
+    int INVITE = 7; //邀请
 
-    CHECK_LOGIN("登录检测", 8),
+    int CHECK_LOGIN = 8; //检测登录
 
-    LOGIN("登录", 9);
+    int LOGIN = 9; //去登录
+
+    int REWARD_VIDEO_COMPLETE = 100; //激励视频播放完成通知
 }
 ```
 
@@ -144,8 +146,8 @@ public interface LflCustomTaskListener {
     /**
      * 调用自定义任务(当用户点击页面的自定义任务时会响应此回调)
      *
-     * @param customTask
+     * @param customTaskType
      */
-    void onCallCustomTask(Context context,CustomTaskType customTsk);
+    void onCallCustomTask(Context context, int customTaskType);
 }
 ```

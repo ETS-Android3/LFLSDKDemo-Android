@@ -55,7 +55,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
-    implementation 'com.alldls.lflsdk:lflsdk:1.0.5'
+    implementation 'com.alldls.lflsdk:lflsdk:1.0.6'
     // 以下参考融合SDK文档接入
     //移动安全联盟OAID（生成唯一标识用来代替imei,如果app不添加，则可以不用加）
     implementation 'com.bun.miitmdid:fork-oaid:1.0.23'

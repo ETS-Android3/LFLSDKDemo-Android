@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         });
                         LflSDK.addListener(new LflCustomTaskListener() {
                             @Override
-                            public void onCallCustomTask(Context context, CustomTaskType customTaskType) {
+                            public void onCallCustomTask(Context context, int customTaskType) {
                                 if (customTaskType == CustomTaskType.SHARE) {
                                     //调用媒体端分享逻辑
                                     new AlertDialog.Builder(context)
