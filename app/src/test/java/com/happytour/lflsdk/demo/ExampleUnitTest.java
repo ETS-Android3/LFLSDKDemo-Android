@@ -1,4 +1,4 @@
-package com.lflsdkdemo.android;
+package com.happytour.lflsdk.demo;
 
 import org.junit.Test;
 
