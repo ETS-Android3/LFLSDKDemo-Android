@@ -1,2 +1,3 @@
-rootProject.name = "LFLSDKDemo-Android"
+gradle.ext.IS_DEV = false
+rootProject.name = "LFLSDKDemo"
 include ':app'
